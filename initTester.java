@@ -3,9 +3,9 @@ import java.io.IOException;
 
 public class initTester {
     public static void deleteCurrent () {
-        File gitDirectory = new File ("git");
-        File objectsDirectory = new File ("git/objects");
-        String indexFileName = "index";
+        File gitDirectory = new File ("./git");
+        File objectsDirectory = new File ("./git/objects");
+        String indexFileName = "./index";
         File indexFile = new File (gitDirectory, indexFileName);
         if (gitDirectory.exists() && objectsDirectory.exists() && indexFile.exists()) {
             gitDirectory.delete();
@@ -30,9 +30,9 @@ public class initTester {
 
     }
     public static void main (String [] args) throws IOException {
-        File gitDirectory = new File ("git");
-        File objectsDirectory = new File ("git/objects");
-        String indexFileName = "index";
+        File gitDirectory = new File ("./git");
+        File objectsDirectory = new File ("./git/objects");
+        String indexFileName = "./index";
         File indexFile = new File (gitDirectory, indexFileName);
         Git myGit1 = new Git(false);
 

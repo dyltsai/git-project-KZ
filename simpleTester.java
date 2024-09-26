@@ -28,11 +28,11 @@ public class simpleTester {
         tf.write("why is this so confusing");
         File testingFolder2 = new File(testingFolder, "testingFolder2");
         testingFolder2.mkdir();
-        File test2 = new File(testingFolder2, "item2");
-        BufferedWriter tf2 = new BufferedWriter(new FileWriter(test2));
-        tf2.write("cry");
+        // File test2 = new File(testingFolder2, "item2");
+        // BufferedWriter tf2 = new BufferedWriter(new FileWriter(test2));
+        // tf2.write("cry");
         tf.close();
-        tf2.close();
+        //tf2.close();
 
         // File file1 = new File("file1.txt");
         // File file2 = new File("file2.txt");

@@ -55,9 +55,11 @@ public class Git {
 
     // creates a blob.
     // fileName is actually the file Path
-    public void makeBLOB(String fileName) throws IOException, NoSuchAlgorithmException {
+    // returns the hash of the blob
+    public String makeBLOB(String fileName) throws IOException, NoSuchAlgorithmException {
         File temp = new File(fileName);
         StringBuilder fileContent = new StringBuilder();
+        String hash;
         // if not exist, then throw exceptions
         if (!temp.exists()) {
             throw new FileNotFoundException("the file doesn't exist");
@@ -68,31 +70,36 @@ public class Git {
             StringBuilder sb = new StringBuilder();
             for (File currFile : files) {
                 // for each currFile, make a blob
-                makeBLOB(currFile.getPath());
-                sb.append(currFile+"\n");
+                String hashed = makeBLOB(currFile.getPath()); // makes the blob and returns the hash
+                if (currFile.isDirectory()) {
+                    sb.append("tree " + hashed + " " + currFile.getName() + "\n");
+                } else {
+                    sb.append("blob " + hashed + " " + currFile.getName() + "\n");
+                }
             }
-            String treeHash = hashTree(sb);
+            hash = hashTree(sb);
             // creates file for the tree
-            File file = new File("git/objects", treeHash);
+            File file = new File("git/objects", hash);
             file.createNewFile();
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
             bw.append(sb.toString());
-
-            fileContent.append("tree " + treeHash + " " + new File(fileName).getPath());
+            fileContent.append("tree " + hash + " " + new File(fileName).getPath());
             bw.close();
-
         } else {
             // hashes a blob
-            String hash = hashingFunction(fileName);
+            hash = hashingFunction(fileName);
             File file = new File("git/objects", hash);
             file.createNewFile();
             fileWriter(fileName, file);
             fileContent.append("blob " + hash + " " + new File(fileName).getPath());
         }
+
+        // adds a line into the index file
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(indexFile, true))) {
             bw.append(fileContent.toString());
             bw.newLine();
         }
+        return hash;
 
     }
 

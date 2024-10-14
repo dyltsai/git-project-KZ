@@ -227,6 +227,9 @@ public class Git implements GitInterface{
         //clear index
         indexFile.delete();
         indexFile.createNewFile();
+        BufferedWriter indexWriter = new BufferedWriter(new FileWriter(indexFile));
+        indexWriter.write("tree " + hash + " " + indexFile.getPath());
+        indexWriter.close();
 
         return newHead;
     }

@@ -246,5 +246,12 @@ public class Git implements GitInterface{
         }
         bw.close();
         reader.close();
-    }
+        BufferedWriter writer = new BufferedWriter(new FileWriter("./git/HEAD"));
+        BufferedReader hReader = new BufferedReader(new FileReader(file));
+        hReader.readLine();
+        String nextHead = hReader.readLine().substring(7);
+        hReader.close();
+        writer.write(nextHead);
+        writer.close();
+        }
 }

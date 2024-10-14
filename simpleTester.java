@@ -17,9 +17,8 @@ public class simpleTester {
         File file = new File("./penis.txt");
         file.createNewFile();
         myGit.stage("./penis.txt");
-        myGit.makeBLOB("penis");
         myGit.commit("dylan", "penis");
-        myGit.checkout("./git/objects/ffde9b277d4ce1ccb725549979efa537c19013af");
+        myGit.checkout("./git/objects/33b71332dcb08706a60ee7ed88b73d5473e36b29");
     }
 
 
